@@ -1,0 +1,32 @@
+DEVICE: cuda              # device used for training and evaluation
+SAVE_DIR: output          # directory name to save the model and logs
+
+MODEL:
+  TEACHER: resnet50       # teacher model name
+  STUDENT: resnet18       # student model name
+
+DATASET:
+  ROOT: 'data/imagenet'   # dataset root directory
+
+TRAIN:
+  IMAGE_SIZE: [224, 224]  # training image size
+  EPOCHS: 100             # number of epochs to train
+  BATCH_SIZE: 8           # training batch size
+  WORKERS: 8              # number of workers used in training dataloader
+  LR: 0.1                 # initial learning rate used in optimizer
+  STEP_LR:                # step lr scheduler
+    STEP_SIZE: 30         # parameter used in step lr
+    GAMMA: 0.1            # parameter used in step lr
+  EVAL_INTERVAL: 10       # interval to evaluate the model
+  SEED: 123               # random seed number
+
+EVAL:
+  IMAGE_SIZE: [224, 224]  # evaluation image size
+  BATCH_SIZE: 8           # evaluation batch size
+  WORKERS: 8              # number of workers used in validation dataloader
+
+KD:
+  NAME: KD                # kd method name
+  SUBSET: 1.0             # subset of datasets to be used (0 to 1.0)
+  ALPHA: 0.95             # [0.99, 0.95, 0.5, 0.1, 0.05]
+  TEMP: 6                 # [20, 10, 8, 6, 4.5, 3, 2, 1.5]
